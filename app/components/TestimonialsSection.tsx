@@ -23,26 +23,19 @@ type Testimonial = TextTestimonial | VideoTestimonial;
 
 const testimonials: Testimonial[] = [
   {
-    type: "text",
-    quote:
-      "Our guests are still talking about the oxtail. The whole evening ran smoothly from first plate to last call.",
-    name: "Amara Bennett",
-    role: "Wedding · Croydon",
-  },
-  {
     type: "video",
     quote: "A short reaction from one of our corporate clients.",
     name: "Daniel Osei",
     role: "Corporate Launch",
     video: "/assets/videos/testemonials1.mp4",
   },
-  {
-    type: "text",
-    quote:
-      "Proper yard food, no shortcuts. The curry goat and patties were gone in minutes.",
-    name: "Keisha Morgan",
-    role: "40th Birthday",
-  },
+  // {
+  //   type: "text",
+  //   quote:
+  //     "Proper yard food, no shortcuts. The curry goat and patties were gone in minutes.",
+  //   name: "Keisha Morgan",
+  //   role: "40th Birthday",
+  // },
   {
     type: "video",
     quote: "A quick word after a private dining service.",
@@ -51,11 +44,32 @@ const testimonials: Testimonial[] = [
     video: "/assets/videos/testemonials2.mp4",
   },
   {
-    type: "text",
-    quote:
-      "LALALE brought real energy, real smoke and real flavour to the whole night.",
-    name: "Tariq Foster",
-    role: "Festival Pop-Up",
+    type: "video",
+    quote: "A quick word after a wedding service.",
+    name: "Marsha Ellis",
+    role: "Corporate Service",
+    video: "/assets/videos/testemonials3.mp4",
+  },
+  {
+    type: "video",
+    quote: "A short review from a lunch delivery client.",
+    name: "Leon Grant",
+    role: "Office Lunch",
+    video: "/assets/videos/testemonials4.mp4",
+  },
+  {
+    type: "video",
+    quote: "A short reaction from a festival guest.",
+    name: "Sonia Reid",
+    role: "Corporate Service",
+    video: "/assets/videos/testemonials5.mp4",
+  },
+  {
+    type: "video",
+    quote: "A quick note after a private celebration.",
+    name: "Andre Wallace",
+    role: "Private Celebration",
+    video: "/assets/videos/testemonials6.mp4",
   },
 ];
 
@@ -99,19 +113,15 @@ function VideoTestimonialCard({ item }: { item: VideoTestimonial }) {
               type="button"
               onClick={handlePlay}
               className="absolute inset-0 flex items-center justify-center"
-              aria-label={`Play testimonial from ${item.name}`}
+              aria-label={`Play testimonial video for ${item.role}`}
             >
               <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/18 bg-black/34 backdrop-blur-sm transition hover:scale-[1.04]">
                 <span className="ml-1 h-0 w-0 border-y-[8px] border-l-[13px] border-y-transparent border-l-white" />
               </span>
             </button>
             <div className="absolute inset-x-0 bottom-0 p-5">
-              <p className="max-w-[16rem] text-[13px] leading-6 text-white/84">{item.quote}</p>
               <div className="mt-5 border-t border-white/10 pt-4">
-                <p className="font-[family:var(--font-accent-family)] text-[26px] leading-none text-white">
-                  {item.name}
-                </p>
-                <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
                   {item.role}
                 </p>
               </div>
