@@ -1,55 +1,85 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
 
-const services = [
+type Service = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  image: string;
+  className: string;
+  cta?: string;
+};
+
+const services: Service[] = [
   {
-    title: "Private Catering",
+    title: "Parties",
     eyebrow: "Gathered Tables",
-    description:
-      "Birthdays, christenings, family link-ups. Full buffet or plated service with our team on site.",
+    description: "Buffets and plated menus for lively private celebrations.",
     image: "/assets/cta-plating.jpg",
-    className: "md:col-span-8 md:row-span-2",
+    className: "md:col-span-6 md:row-span-2",
+  },
+  {
+    title: "Cooperate Events",
+    eyebrow: "Precision Service",
+    description: "Reliable catering for launches, meetings and brand moments.",
+    image: "/assets/event-corporate.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  },
+  {
+    title: "Concerts",
+    eyebrow: "Live Crowd Energy",
+    description: "Fast, crowd-ready food service built for big live nights.",
+    image: "/assets/event-popup.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  },
+  {
+    title: "Dinners",
+    eyebrow: "Evening Service",
+    description: "Refined Jamaican menus for intimate hosted dinner service.",
+    image: "/assets/dish-fish.jpg",
+    className: "md:col-span-6 md:row-span-1",
+    },
+  {
+    title: "Office Lunch",
+    eyebrow: "Midday Delivery",
+    description: "Fresh lunch drops for teams, studios and office gatherings.",
+    image: "/assets/story-roots.jpg",
+    className: "md:col-span-4 md:row-span-1",
   },
   {
     title: "Weddings",
     eyebrow: "Signature Celebrations",
-    description:
-      "Tasting sessions, bespoke island menus and elegant service for your biggest day.",
+    description: "Elegant island catering shaped for your biggest day.",
     image: "/assets/event-wedding.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Corporate Events",
-    eyebrow: "Precision Service",
-    description:
-      "Conferences, launches and office celebrations, delivered hot and on schedule.",
-    image: "/assets/event-corporate.jpg",
+    title: "Funerals",
+    eyebrow: "Respectful Service",
+    description: "Warm, respectful food service for family remembrance days.",
+    image: "/assets/story-founders.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Food Truck & Pop-Ups",
-    eyebrow: "Live Fire Energy",
-    description:
-      "Live jerk drum, street-style plates and full festival setups anywhere you need us.",
-    image: "/assets/event-popup.jpg",
+    title: "Chef Tables",
+    eyebrow: "Private Experience",
+    description: "A close-up dining experience with curated multi-course menus.",
+    image: "/assets/dish-patty.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Private Chef",
-    eyebrow: "Course by Course",
-    description:
-      "An intimate Jamaican tasting menu cooked in your own kitchen, course by course.",
-    image: "/assets/dish-fish.jpg",
+    title: "Concerts",
+    eyebrow: "Festival Setup",
+    description: "Street-style service scaled for concerts and outdoor stages.",
+    image: "/assets/hero.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Something else in mind?",
-    eyebrow: "Tailored to the Occasion",
-    description:
-      "Tell us the date, the headcount and the vibe. We will build the menu around it.",
-    image: "/assets/story-roots.jpg",
+    title: "School Dinner",
+    eyebrow: "Community Catering",
+    description: "Balanced, flavour-led meals for school service and events.",
+    image: "/assets/dish-ackee.jpg",
     className: "md:col-span-4 md:row-span-1",
-    cta: "Start a conversation",
   },
 ];
 
@@ -80,7 +110,7 @@ export function ServicesEventsSection() {
         <div className="mt-14 grid grid-cols-1 gap-4 md:auto-rows-[14rem] md:grid-cols-12 lg:gap-5">
           {services.map((service, index) => (
             <Reveal
-              key={service.title}
+              key={`${service.title}-${index}`}
               as="article"
               delay={index * 70}
               className={[

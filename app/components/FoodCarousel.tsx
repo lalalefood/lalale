@@ -2,12 +2,28 @@ import { Reveal } from "./Reveal";
 import Image from "next/image";
 
 const slides = [
-  { img: "/assets/hero.jpg", name: "Open-Fire Jerk Chicken", tag: "Pimento smoke" },
-  { img: "/assets/dish-oxtail.jpg", name: "Braised Oxtail", tag: "Six hours slow" },
-  { img: "/assets/dish-curry-goat.jpg", name: "Curry Goat", tag: "Island spice" },
-  { img: "/assets/dish-fish.jpg", name: "Escovitch Snapper", tag: "Sweet & sharp" },
-  { img: "/assets/dish-patty.jpg", name: "Golden Patties", tag: "Flaky, hand-folded" },
-  { img: "/assets/dish-ackee.jpg", name: "Ackee & Saltfish", tag: "National dish" },
+  { img: "/assets/images/menu_page/chicken_wings.jpeg", name: "Max Jerk-fried Chicken Wings", tag: "Chicken" },
+  { img: "/assets/images/menu_page/CHICKENPOPCORN.jpeg", name: "Max Jerk-fried Chicken Pop-corn", tag: "Chicken" },
+  { img: "/assets/images/menu_page/chocolate_bun.png", name: "Chocolate Bun", tag: "Desserts" },
+  { img: "/assets/images/menu_page/coconut_rice.jpeg", name: "Coconut Rice", tag: "Rice" },
+  { img: "/assets/images/menu_page/dauphinoise_potatoes.png", name: "Jamaica Dauphinoise Potatoes", tag: "Festivals" },
+  { img: "/assets/images/menu_page/FigCakewithPischacioSauce.png", name: "Fig Cake with Pistachio Sauce", tag: "Desserts" },
+  { img: "/assets/images/menu_page/grater_cake.jpeg", name: "Vegan Grater Cake", tag: "Desserts" },
+  { img: "/assets/images/menu_page/irish_moss_slices.jpeg", name: "Max Irish Moss Slices with Wild Berry Coulis", tag: "Desserts" },
+  { img: "/assets/images/menu_page/jamaica_patie.png", name: "Jamaica Pattie", tag: "Vegan" },
+  { img: "/assets/images/menu_page/manish_paperpot.png", name: "Manish Paperpot", tag: "Meat" },
+  { img: "/assets/images/menu_page/maxjerkchiken.jpeg", name: "Max Jerk-fried Chicken", tag: "Chicken" },
+  { img: "/assets/images/menu_page/portland_chicken.jpeg", name: "Portland Style Jerk Chicken", tag: "Chicken" },
+  { img: "/assets/images/menu_page/portlandChicken2.jpeg", name: "Portland Chicken", tag: "Chicken" },
+  { img: "/assets/images/menu_page/quadruple_chocolate.png", name: "Quadruple Chocolate Cake", tag: "Desserts" },
+  { img: "/assets/images/menu_page/redvelvetcake.jpeg", name: "LALALE Redvelvet cake", tag: "Desserts" },
+  { img: "/assets/images/menu_page/rice_and_peas.png", name: "Rice and Peas", tag: "Vegan" },
+  { img: "/assets/images/menu_page/stirfryparcel.png", name: "Stir-Fry Parcel", tag: "Vegan" },
+  { img: "/assets/images/menu_page/swetfruit.png", name: "Sweet Fruit Cake", tag: "Desserts" },
+  { img: "/assets/images/menu_page/Vegan_Bean_Balls.png", name: "Vegan Bean Balls", tag: "Vegan" },
+  { img: "/assets/images/menu_page/vegan_red_lentil.jpeg", name: "Vegan red lentil patties", tag: "Vegan" },
+  { img: "/assets/images/menu_page/Vegan_stir_frie.jpeg", name: "Vegan stir-fried spicy lentils", tag: "Vegan" },
+  { img: "/assets/images/menu_page/vegetable_samba.png", name: "Vegetable Samba", tag: "Vegan" },
 ];
 
 const marquee = [...slides, ...slides];
@@ -53,7 +69,7 @@ export function FoodCarousel() {
                 <p className="text-[10px] font-semibold tracking-[0.34em] uppercase text-[var(--color-gold)] sm:text-sm">
                   {slide.tag}
                 </p>
-                <p className="mt-3 text-4xl font-light tracking-[0.06em] text-white uppercase font-[family:var(--font-accent-family)]">
+                <p className="mt-3 text-xl font-light tracking-[0.06em] text-white uppercase font-[family:var(--font-accent-family)]">
                   {slide.name}
                 </p>
               </figcaption>

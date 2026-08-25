@@ -40,7 +40,7 @@ export function HeroSection() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition hover:text-[var(--color-sky)]">
+                <a href="#contact-form" className="transition hover:text-[var(--color-sky)]">
                   Contact
                 </a>
               </li>

@@ -1,19 +1,20 @@
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
+import WhatsappIcon from "@/public/assets/whatsapp_icon.svg"
+import Image from "next/image";
+import Logo from "@/public/assets/images/logo_transparent_background.png"
 
 const quickLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "Menu", href: "#menu" },
+  { label: "Home", href: "/" },
+  { label: "Menu", href: "/menu" },
   { label: "Services", href: "#services" },
-  { label: "Our Story", href: "#story" },
+  { label: "Our Story", href: "#about" },
   { label: "Past Events", href: "#gallery" },
   { label: "Contact", href: "#contact-form" },
 ];
 
 const socials = [
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Facebook, label: "Facebook", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Youtube, label: "YouTube", href: "#" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/lalalefoodsandevents/", type: "icon" },
+  { icon: WhatsappIcon, label: "Whatsapp", href: "https://wa.me/447754847073", type: "image" },
 ];
 
 export function FooterSection() {
@@ -24,9 +25,7 @@ export function FooterSection() {
       <div className="mx-auto grid max-w-screen-2xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.1fr_0.8fr_1fr] lg:px-12">
         <div className="max-w-xl">
           <div className="flex items-center gap-4">
-            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-[var(--color-gold)] text-3xl font-semibold uppercase text-[#1b1511] font-[family:var(--font-display-family)]">
-              L
-            </div>
+            <Image src={Logo} alt="LALALE Foods & Events" width={64} height={64} />
             <div>
               <p className="text-4xl font-semibold uppercase tracking-[0.01em] text-white font-[family:var(--font-display-family)]">
                 LALALE
@@ -38,8 +37,7 @@ export function FooterSection() {
           </div>
 
           <p className="mt-8 max-w-lg text-[16px] leading-8 text-white/68 font-[family:var(--font-accent-family)]">
-            Authentic Jamaican food and full-service catering, cooked over fire and served
-            with island warmth.
+            Authentic Jamaican dining for global events. Our team crafts bespoke Caribbean feasts wherever you gather.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -51,9 +49,11 @@ export function FooterSection() {
                   key={item.label}
                   href={item.href}
                   aria-label={item.label}
-                  className="flex h-16 w-16 items-center justify-center rounded-full border border-white/14 text-white/74 transition hover:border-[var(--color-gold)] hover:text-[var(--color-gold)]"
+                  target="_blank"
+                  className="flex h-16 w-16 items-center justify-center rounded-full border border-white/14 text-white/74 transition hover:border-[var(--color-gold)]"
                 >
-                  <Icon className="h-6 w-6" strokeWidth={1.75} />
+                  {item.type === "icon" && <Icon className="h-6 w-6" strokeWidth={1.75} />}
+                  {item.type === "image" && <Image src={item.icon} alt={item.label} className="h-6 w-6" />}
                 </a>
               );
             })}
@@ -85,10 +85,9 @@ export function FooterSection() {
             About Us
           </p>
 
-          <div className="mt-8 space-y-5 text-[16px] leading-8 text-white/68 font-[family:var(--font-accent-family)]">
-            <p>events@lalalefoods.com</p>
-            <p>+44 20 7946 0812</p>
-            <p>Unit 4, Ridley Yard, London E8 2NP</p>
+          <div className="mt-8 space-y-5 text-[16px] leading-8 text-white/68 font-[family:var(--font-accent-family)] flex flex-col">
+            <a href="mailto:llalalefoodsandevents@gmail.com" target="_blank">llalalefoodsandevents@gmail.com</a>
+            <a href="tel:+447754847073">+44 7754 847073</a>
           </div>
         </div>
       </div>

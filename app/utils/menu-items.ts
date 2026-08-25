@@ -10,7 +10,6 @@ import MaxJerkCoconutChickenRice from "@/public/assets/images/menu_page/chicken_
 
 import CoconutRice from "@/public/assets/images/menu_page/coconut_rice.jpeg";
 import VeganLentils from "@/public/assets/images/menu_page/Vegan_stir_frie.jpeg";
-import RiceAndPeas from "@/public/assets/images/menu_page/rice_and_peas.jpeg";
 import VeganRedLentilPatties from "@/public/assets/images/menu_page/vegan_red_lentil.jpeg";
 import Breadsticks from "@/public/assets/images/menu_page/bread.jpg";
 import lalaleBurguer from "@/public/assets/images/menu_page/lalale_jeck_burguer.jpeg";
@@ -24,6 +23,19 @@ import RedvelvetCake from "@/public/assets/images/menu_page/redvelvetcake.jpeg";
 import BananaCake from "@/public/assets/images/menu_page/banancake.jpeg";
 import CarrotCake from "@/public/assets/images/menu_page/carrotcake.jpeg";
 import GengibreDrink from "@/public/assets/images/menu_page/gengibre.jpeg";
+import SwetFruitCake from "@/public/assets/images/menu_page/swetfruit.png";
+import ManishPaperpot from "@/public/assets/images/menu_page/manish_paperpot.png";
+import RiceAndPeas from "@/public/assets/images/menu_page/rice_and_peas.jpeg";
+import QuadrupleChocolateCake from "@/public/assets/images/menu_page/quadruple_chocolate.png";
+import JamaicaDauphinoisePotatoes from "@/public/assets/images/menu_page/dauphinoise_potatoes.png";
+import VeganBeansBalls from "@/public/assets/images/menu_page/Vegan_Bean_Balls.png";
+import FigCakewithPischacioSauce from "@/public/assets/images/menu_page/FigCakewithPischacioSauce.png";
+import StirFryParcel from "@/public/assets/images/menu_page/stirfryparcel.png";
+import VegetableSamba from "@/public/assets/images/menu_page/vegetable_samba.png";
+import JamaicaAmuseBouche from "@/public/assets/images/menu_page/jamaica_amusebouche.png";
+import JamaicaPattie from "@/public/assets/images/menu_page/jamaica_patie.png";
+import ChocolateBun from "@/public/assets/images/menu_page/chocolate_bun.png";
+import WildForrestCake from "@/public/assets/images/menu_page/WildForrestCake.png";
 
 import type { StaticImageData } from "next/image";
 
@@ -34,6 +46,7 @@ export type Category =
   | "VEGAN"
   | "FESTIVALS"
   | "DESSERTS"
+  | "SAUCES"
   | "DRINKS";
 
 export type Dish = {
@@ -114,13 +127,6 @@ export const dishes: Dish[] = [
     image: VeganLentils,
     align: "left",
     categories: ["VEGAN"],
-  },
-  {
-    title: "Traditional rice and peas",
-    text: "Traditional Jamaican rice and peas cooked with kidney beans, topped with colorful cherry tomatoes and fresh herbs.",
-    image: RiceAndPeas,
-    align: "right",
-    categories: ["RICE", "VEGAN"],
   },
   {
     title: "Vegan red lentil patties",
@@ -212,5 +218,96 @@ export const dishes: Dish[] = [
     image: GengibreDrink,
     align: "right",
     categories: ["DRINKS"],
+  },
+  {
+    title: "Sweet Fruit Cake",
+    text: "Golden crêpes filled with sweet fruit, dusted with powdered sugar, and served with fresh berries.",
+    image: SwetFruitCake,
+    align: "left",
+    categories: ["DESSERTS"],
+  },
+  {
+    title: "Manish Paperpot",
+    text: "Traditional Jamaican goat soup slow-cooked in a rich, spicy broth infused with herbs and peppers.",
+    image: ManishPaperpot,
+    align: "right",
+    categories: ["MEAT"],
+  },
+  {
+    title: "Rice & Peas",
+    text: "Jamaica’s Sunday staple, signifying family and rest; made with coconut milk, thyme, and kidney beans.",
+    image: RiceAndPeas,
+    align: "left",
+    categories: ["RICE", "VEGAN"],
+  },
+  {
+    title: "Quadruple Chocolate Cake",
+    text: "A show-stopping signature dessert crafted for pure indulgence. Four distinct layers of chocolate artistry a moist cocoa sponge, a silky ganache filling, a rich dark chocolate glaze, and delicate chocolatecurls dusted with edible gold.",
+    image: QuadrupleChocolateCake,
+    align: "right",
+    categories: ["DESSERTS"],
+  },
+  {
+    title: "Jamaica Dauphinoise Potatoes",
+    text: "Sliced potatoes baked in a rich, creamy garlic sauce with a golden, bubbly cheese crust.",
+    image: JamaicaDauphinoisePotatoes,
+    align: "right",
+    categories: ["FESTIVALS"],
+  },
+  {
+    title: "Vegan Bean Balls",
+    text: "Hearty plant-based meatballs simmered in a rich, savory tomato and bell pepper sauce.",
+    image: VeganBeansBalls,
+    align: "right",
+    categories: ["VEGAN"],
+  },
+  {
+    title: "Fig Cake with Pistachio Sauce",
+    text: "Moist sponge cake topped with fresh fig and drizzled with smooth, nutty pistachio sauce.",
+    image: FigCakewithPischacioSauce,
+    align: "left",
+    categories: ["DESSERTS"],
+  },
+  {
+    title: "Stir-Fry Parcel",
+    text: "Crisp pastry filled with savory stir-fried veggies, wrapped in nori, and garnished with sweet pomegranate seeds.",
+    image: StirFryParcel,
+    align: "left",
+    categories: ["VEGAN"],
+  },
+  {
+    title: "Vegetable Samba",
+    text: "Vibrant mixed greens tossed with crisp cucumbers, sweet peppers, and juicy pomegranate seeds in a light dressing.",
+    image: VegetableSamba,
+    align: "right",
+    categories: ["VEGAN"],
+  },
+  {
+    title: "Jamaica Amuse-Bouche",
+    text: "Golden, savory tart slices filled with spiced island vegetables and finished with a rich tangy drizzle.",
+    image: JamaicaAmuseBouche,
+    align: "right",
+    categories: ["FESTIVALS"],
+  },
+  {
+    title: "Jamaica Pattie",
+    text: "Flaky, golden turmeric pastry baked to perfection with a savory, island-spiced filling.",
+    image: JamaicaPattie,
+    align: "left",
+    categories: ["VEGAN"],
+  },
+  {
+    title: "Chocolate Bun",
+    text: "Rich, spiced cocoa bun loaded with sweet dried fruit and paired with a glossy berry compote.",
+    image: ChocolateBun,
+    align: "right",
+    categories: ["DESSERTS"],
+  },
+  {
+    title: "Wild Forrest Cake",
+    text: "Playful green forest-themed cake decorated with chocolate leaves and fun pre-historic dinosaur toppers.",
+    image: WildForrestCake,
+    align: "left",
+    categories: ["DESSERTS"],
   },
 ];
