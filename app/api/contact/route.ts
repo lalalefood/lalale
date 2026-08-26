@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+
 const CONTACT_RECIPIENT = "llalalefoodsandevents@gmail.com";
 
 export async function POST(request: Request) {
