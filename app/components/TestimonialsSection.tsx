@@ -1,39 +1,158 @@
+"use client";
+
+import { useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 
-const testimonials = [
+type TestimonialBase = {
+  name: string;
+  role: string;
+};
+
+type TextTestimonial = TestimonialBase & {
+  type: "text";
+  quote: string;
+};
+
+type VideoTestimonial = TestimonialBase & {
+  type: "video";
+  quote: string;
+  video: string;
+};
+
+type Testimonial = TextTestimonial | VideoTestimonial;
+
+const testimonials: Testimonial[] = [
   {
-    quote:
-      "Our guests are still talking about the oxtail. The team ran the whole evening without a single hiccup and the jerk station was the highlight of the night.",
-    name: "Amara Bennett",
-    role: "Wedding · Croydon",
-  },
-  {
-    quote:
-      "We booked LALALE for 250 people at short notice. Hot, on time, beautifully presented, and the office has asked for them every quarter since.",
+    type: "video",
+    quote: "A short reaction from one of our corporate clients.",
     name: "Daniel Osei",
     role: "Corporate Launch",
+    video: "/assets/videos/testemonials1.mp4",
   },
+  // {
+  //   type: "text",
+  //   quote:
+  //     "Proper yard food, no shortcuts. The curry goat and patties were gone in minutes.",
+  //   name: "Keisha Morgan",
+  //   role: "40th Birthday",
+  // },
   {
-    quote:
-      "Proper yard food, not a watered-down version. The curry goat tasted like my auntie's kitchen and the patties disappeared in minutes.",
-    name: "Keisha Morgan",
-    role: "40th Birthday",
-  },
-  {
-    quote:
-      "From tasting to service, everything felt calm and premium. They made our private dinner feel generous, intimate and completely effortless.",
+    type: "video",
+    quote: "A quick word after a private dining service.",
     name: "Naomi Clarke",
     role: "Private Dining",
+    video: "/assets/videos/testemonials2.mp4",
   },
   {
-    quote:
-      "The pop-up queue never slowed down and nobody wanted to leave. LALALE brought real energy, real smoke and real flavour to the whole night.",
-    name: "Tariq Foster",
-    role: "Festival Pop-Up",
+    type: "video",
+    quote: "A quick word after a wedding service.",
+    name: "Marsha Ellis",
+    role: "Corporate Service",
+    video: "/assets/videos/testemonials3.mp4",
+  },
+  {
+    type: "video",
+    quote: "A short review from a lunch delivery client.",
+    name: "Leon Grant",
+    role: "Office Lunch",
+    video: "/assets/videos/testemonials4.mp4",
+  },
+  {
+    type: "video",
+    quote: "A short reaction from a festival guest.",
+    name: "Sonia Reid",
+    role: "Corporate Service",
+    video: "/assets/videos/testemonials5.mp4",
+  },
+  {
+    type: "video",
+    quote: "A quick note after a private celebration.",
+    name: "Andre Wallace",
+    role: "Private Celebration",
+    video: "/assets/videos/testemonials6.mp4",
   },
 ];
 
 const marqueeTestimonials = [...testimonials, ...testimonials];
+
+function VideoTestimonialCard({ item }: { item: VideoTestimonial }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlay = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    try {
+      await video.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  };
+
+  const handlePause = () => setIsPlaying(false);
+
+  return (
+    <article className="w-[18.5rem] shrink-0 overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#201b18] shadow-[0_18px_40px_rgba(0,0,0,0.14)] sm:w-[20rem]">
+      <div className="relative aspect-[4/5] bg-black">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          src={item.video}
+          playsInline
+          preload="metadata"
+          controls={isPlaying}
+          onPause={handlePause}
+          onEnded={handlePause}
+        />
+        {!isPlaying ? (
+          <>
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,4,4,0.12)_0%,rgba(4,4,4,0.18)_42%,rgba(4,4,4,0.72)_100%)]" />
+            <button
+              type="button"
+              onClick={handlePlay}
+              className="absolute inset-0 flex items-center justify-center"
+              aria-label={`Play testimonial video for ${item.role}`}
+            >
+              <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/18 bg-black/34 backdrop-blur-sm transition hover:scale-[1.04]">
+                <span className="ml-1 h-0 w-0 border-y-[8px] border-l-[13px] border-y-transparent border-l-white" />
+              </span>
+            </button>
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <div className="mt-5 border-t border-white/10 pt-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--color-gold)]">
+                  {item.role}
+                </p>
+              </div>
+            </div>
+          </>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+function TextTestimonialCard({ item }: { item: TextTestimonial }) {
+  return (
+    <article className="w-[18.5rem] shrink-0 rounded-[1.75rem] border border-white/10 bg-[#2a2421] px-6 py-7 text-[var(--color-foreground)] shadow-[0_18px_40px_rgba(0,0,0,0.12)] sm:w-[20rem] sm:px-7 sm:py-8">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/42">
+        Written testimonial
+      </p>
+
+      <p className="mt-8 text-[15px] leading-8 text-white/78">
+        “{item.quote}”
+      </p>
+
+      <div className="mt-12">
+        <p className="font-script text-[34px] leading-none text-white sm:text-[38px]">
+          {item.name}
+        </p>
+        <p className="mt-3 text-[13px] leading-6 text-white/54">{item.role}</p>
+      </div>
+    </article>
+  );
+}
 
 export function TestimonialsSection() {
   return (
@@ -43,57 +162,26 @@ export function TestimonialsSection() {
     >
       <div className="mx-auto max-w-screen-2xl">
         <Reveal>
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="flex flex-col items-center">
             <p className="text-xs font-semibold uppercase tracking-[0.42em] text-[var(--color-gold)]">
               Testimonials
             </p>
-            <h2 className="mt-5 text-4xl font-light uppercase tracking-[0.08em] text-white sm:text-5xl md:text-6xl font-[family:var(--font-accent-family)]">
-              People Remember the Table
+            <h2 className="mt-5 max-w-4xl text-4xl font-light leading-[1.02] text-white sm:text-4xl md:text-5xl font-[family:var(--font-accent-family)]">
+              Hear it from our clients.
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/72 sm:text-lg">
-              A few words from clients who trusted LALALE to feed weddings, private dinners,
-              launches and late-night celebrations.
-            </p>
           </div>
         </Reveal>
 
         <div className="relative mt-14">
-          <div className="testimonials-track flex w-max gap-6 px-1" aria-label="Client testimonials">
-            {marqueeTestimonials.map((item, index) => (
-              <article
-                key={`${item.name}-${index}`}
-                className="w-[22rem] shrink-0 rounded-[1.75rem] border border-white/10 bg-[#2b2521] px-7 py-7 text-[var(--color-foreground)] shadow-[0_22px_50px_rgba(0,0,0,0.14)] sm:w-[28rem] sm:px-8 sm:py-8"
-              >
-                <div className="text-6xl leading-none text-[var(--color-gold)] font-[family:var(--font-display-family)]">
-                  &rdquo;
-                </div>
-
-                <div className="mt-5 flex items-center gap-2 text-xl text-[var(--color-gold)]">
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                </div>
-
-                <p className="mt-6 min-h-32 text-[15px] leading-8 text-white/68 font-[family:var(--font-accent-family)] sm:min-h-36">
-                  “{item.quote}”
-                </p>
-
-                <div className="mt-7 border-t border-white/8 pt-6">
-                  <p className="font-[family:var(--font-display-family)] text-xl font-semibold uppercase tracking-[0.03em] text-white sm:text-2xl">
-                    {item.name}
-                  </p>
-                  <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-[var(--color-jade)] sm:text-xs">
-                    {item.role}
-                  </p>
-                </div>
-              </article>
-            ))}
+          <div className="testimonials-track flex w-max gap-5 px-1" aria-label="Client testimonials">
+            {marqueeTestimonials.map((item, index) =>
+              item.type === "video" ? (
+                <VideoTestimonialCard key={`${item.name}-${item.type}-${index}`} item={item} />
+              ) : (
+                <TextTestimonialCard key={`${item.name}-${item.type}-${index}`} item={item} />
+              ),
+            )}
           </div>
-
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[var(--color-charcoal)] to-transparent sm:w-8" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-[var(--color-charcoal)] to-transparent sm:w-8" />
         </div>
       </div>
     </section>

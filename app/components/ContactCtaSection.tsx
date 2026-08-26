@@ -27,7 +27,7 @@ export function ContactCtaSection() {
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[var(--color-gold)]">
               Dates are filling fast
             </p>
-            <h2 className="mt-6 text-5xl font-light uppercase tracking-[0.08em] text-white sm:text-6xl md:text-7xl font-[family:var(--font-accent-family)]">
+            <h2 className="mt-6 text-6xl font-light uppercase tracking-[0.08em] text-white font-[family:var(--font-accent-family)]">
               Got an event coming?
               <span className="mt-2 block text-[var(--color-foreground)]">Let us feed the room.</span>
             </h2>

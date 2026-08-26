@@ -1,30 +1,78 @@
-import { CalendarDays, Clock3, Mail, MapPin, Phone, SendHorizontal } from "lucide-react";
+ "use client";
+
+import { useState, type FormEvent } from "react";
+import { CheckCircle2, Clock3, Icon, Mail, Phone, SendHorizontal } from "lucide-react";
 import { Reveal } from "./Reveal";
+import WhatsappIcon from "@/public/assets/whatsapp_icon.svg"
+import Image from "next/image";
+
+type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 const contactItems = [
   {
     icon: Phone,
-    label: "Call Center",
-    lines: ["+44 20 7946 0812", "+44 7700 900 145"],
+    label: "Phone",
+    lines: ["+44 7754 847073"],
   },
   {
     icon: Mail,
     label: "Email",
-    lines: ["events@lalalefoods.com"],
+    lines: ["llalalefoodsandevents@gmail.com"],
   },
-  {
-    icon: MapPin,
-    label: "Our Location",
-    lines: ["Unit 4, Ridley Yard", "London E8 2NP"],
-  },
+  // {
+  //   icon: MapPin,
+  //   label: "Our Location",
+  //   lines: ["Unit 4, Ridley Yard", "London E8 2NP"],
+  // },
   {
     icon: Clock3,
     label: "Kitchen Hours",
-    lines: ["Tue – Sun · 10:00 – 22:00", "Mon · Private bookings"],
+    lines: ["Every Day · 8:00 – 11:00PM"],
   },
 ];
 
 export function ContactSection() {
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const directNumber = "+44 7754 847073";
+  const telHref = "tel:+447754847073";
+  const whatsappHref = "https://wa.me/447754847073";
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.get("fullName"),
+          email: formData.get("email"),
+          eventDetails: formData.get("eventDetails"),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Something went wrong. Please try again.",
+      );
+    }
+  }
+
   return (
     <section
       id="contact-form"
@@ -37,7 +85,7 @@ export function ContactSection() {
               I got a question
             </p>
 
-            <h2 className="mt-6 max-w-5xl text-5xl font-light uppercase leading-[0.92] tracking-[0.03em] text-white sm:text-6xl lg:text-7xl font-[family:var(--font-display-family)]">
+            <h2 className="mt-6 max-w-5xl text-5xl font-light uppercase leading-[0.92] tracking-[0.03em] text-white font-[family:var(--font-display-family)]">
               We are always ready to help you and answer your
               <span className="text-[var(--color-gold)]"> questions</span>
             </h2>
@@ -46,6 +94,25 @@ export function ContactSection() {
               Tell us about your event and we will reply within one working day with menu
               options, pricing and available dates.
             </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 rounded-full border border-white/14 bg-white/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/82 transition"
+              >
+                <Image src={WhatsappIcon} alt="Whatsapp Icon" className="h-4 w-4" />
+                WhatsApp
+              </a>
+              <a
+                href={telHref}
+                className="inline-flex items-center gap-3 rounded-full border border-white/14 bg-white/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/82 transition"
+              >
+                <Phone className="h-4 w-4" />
+                Call {directNumber}
+              </a>
+            </div>
 
             <div className="mt-14 grid gap-10 sm:grid-cols-2">
               {contactItems.map((item, index) => {
@@ -78,72 +145,90 @@ export function ContactSection() {
               Share a few details and we will build a menu around your event.
             </p>
 
-            <form className="mt-10 space-y-7">
-              <div className="space-y-3">
-                <label htmlFor="full-name" className="text-lg text-white">
-                  Full name
-                </label>
-                <input
-                  id="full-name"
-                  name="fullName"
-                  type="text"
-                  placeholder="Your name"
-                  className="h-18 w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)]"
-                />
+            {status === "success" ? (
+              <div className="mt-10 flex flex-col items-center gap-5 rounded-2xl border border-[var(--color-jade)]/30 bg-[var(--color-jade)]/8 px-6 py-14 text-center">
+                <CheckCircle2 className="h-14 w-14 text-[var(--color-jade)]" strokeWidth={1.5} />
+                <div>
+                  <p className="text-2xl font-semibold uppercase tracking-[0.04em] text-white font-[family:var(--font-display-family)]">
+                    Message sent
+                  </p>
+                  <p className="mt-3 max-w-sm text-base leading-7 text-white/70">
+                    Thank you! Your message has been sent successfully. Our team will get back
+                    to you shortly.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-2 text-sm font-semibold uppercase tracking-[0.28em] text-[var(--color-gold)] underline-offset-4 transition hover:underline"
+                >
+                  Send another message
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-10 space-y-7">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="space-y-3">
+                    <label htmlFor="full-name" className="text-lg text-white">
+                      Name
+                    </label>
+                    <input
+                      id="full-name"
+                      name="fullName"
+                      type="text"
+                      required
+                      disabled={status === "loading"}
+                      placeholder="Your name"
+                      className="h-18 w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)] disabled:opacity-60"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label htmlFor="email" className="text-lg text-white">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      disabled={status === "loading"}
+                      placeholder="you@email.com"
+                      className="h-18 w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)] disabled:opacity-60"
+                    />
+                  </div>
+                </div>
 
-              <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-3">
-                  <label htmlFor="email" className="text-lg text-white">
-                    Email
+                  <label htmlFor="event-details" className="text-lg text-white">
+                    Tell us about the event
                   </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="you@email.com"
-                    className="h-18 w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)]"
+                  <textarea
+                    id="event-details"
+                    name="eventDetails"
+                    rows={6}
+                    required
+                    disabled={status === "loading"}
+                    placeholder="Headcount, location, style of service..."
+                    className="w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 py-5 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)] disabled:opacity-60"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label htmlFor="event-date" className="text-lg text-white">
-                    Event date
-                  </label>
-                  <div className="relative">
-                    <input
-                      id="event-date"
-                      name="eventDate"
-                      type="text"
-                      placeholder="dd/mm/aaaa"
-                      className="h-18 w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 pr-16 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)]"
-                    />
-                    <CalendarDays className="pointer-events-none absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2 text-white/46" />
-                  </div>
-                </div>
-              </div>
+                {status === "error" && (
+                  <p className="rounded-xl border border-[var(--color-destructive)]/30 bg-[var(--color-destructive)]/10 px-5 py-4 text-sm leading-6 text-[#ffb4a1]">
+                    {errorMessage}
+                  </p>
+                )}
 
-              <div className="space-y-3">
-                <label htmlFor="event-details" className="text-lg text-white">
-                  Tell us about the event
-                </label>
-                <textarea
-                  id="event-details"
-                  name="eventDetails"
-                  rows={6}
-                  placeholder="Headcount, location, style of service..."
-                  className="w-full rounded-2xl border border-white/12 bg-[#1a1512] px-6 py-5 text-lg text-white outline-none transition placeholder:text-white/38 focus:border-[var(--color-gold)]"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="inline-flex h-18 w-full items-center justify-center gap-4 rounded-2xl bg-[var(--color-gold)] px-8 text-lg font-semibold uppercase tracking-[0.24em] text-[#17120e] transition hover:brightness-105"
-              >
-                <SendHorizontal className="h-5 w-5" strokeWidth={2} />
-                Send a message
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="inline-flex h-18 w-full items-center justify-center gap-4 rounded-2xl bg-[var(--color-gold)] px-8 text-lg font-semibold uppercase tracking-[0.24em] text-[#17120e] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  <SendHorizontal className="h-5 w-5" strokeWidth={2} />
+                  {status === "loading" ? "Sending..." : "Send a message"}
+                </button>
+              </form>
+            )}
           </div>
         </Reveal>
       </div>

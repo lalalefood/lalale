@@ -11,7 +11,7 @@ export function HeroSection() {
         poster="/hero-poster.png"
         aria-hidden="true"
       >
-        <source src="/assets/videos/example.mp4" type="video/mp4" />
+        <source src="/assets/videos/hero_video.MOV" type="video/mp4" />
       </video>
 
       <div className="hero-overlay absolute inset-0" />
@@ -40,7 +40,7 @@ export function HeroSection() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="transition hover:text-[var(--color-sky)]">
+                <a href="#contact-form" className="transition hover:text-[var(--color-sky)]">
                   Contact
                 </a>
               </li>
