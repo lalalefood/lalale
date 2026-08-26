@@ -1,7 +1,17 @@
+"use client";
+
+
 import Link from "next/link";
+import { useState } from "react";
 import { Reveal } from "./Reveal";
 
 export function StorySection() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const embedUrl =
+    "https://player.mediadelivery.net/play/641422/911b212e-3333-4ecf-86b7-e85b10a2618c?autoplay=true";
+  const posterUrl =
+    "https://vz-9f1a8ca9-486.b-cdn.net/911b212e-3333-4ecf-86b7-e85b10a2618c/thumbnail.jpg";
+
   return (
     <section
       id="about"
@@ -37,21 +47,36 @@ export function StorySection() {
         <Reveal delay={180}>
           <div className="mt-14">
             <div className="relative overflow-hidden rounded-[2rem] bg-black/20 shadow-[0_32px_90px_rgba(0,0,0,0.34)] ring-1 ring-white/8">
-              <video
-                className="aspect-video w-full object-cover"
-                src="/assets/videos/example.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.24)_36%,rgba(5,5,5,0.56)_100%)]" />
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,209,0,0.05),transparent_38%)]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/18 bg-black/34 backdrop-blur-sm shadow-[0_12px_34px_rgba(0,0,0,0.32)]">
-                  <div className="ml-1 h-0 w-0 border-y-[12px] border-l-[20px] border-y-transparent border-l-[var(--color-gold)]" />
-                </div>
+              <div className="relative aspect-video w-full bg-black">
+                {isPlaying ? (
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={embedUrl}
+                    title="LALALE story video"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={posterUrl}
+                      alt="Preview of the LALALE story video"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.24)_36%,rgba(5,5,5,0.56)_100%)]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,209,0,0.05),transparent_38%)]" />
+                    <button
+                      type="button"
+                      onClick={() => setIsPlaying(true)}
+                      className="absolute inset-0 flex items-center justify-center"
+                      aria-label="Play story video"
+                    >
+                      <span className="flex h-24 w-24 items-center justify-center rounded-full border border-white/18 bg-black/34 backdrop-blur-sm shadow-[0_12px_34px_rgba(0,0,0,0.32)] transition duration-300 hover:scale-[1.04]">
+                        <span className="ml-1 h-0 w-0 border-y-[12px] border-l-[20px] border-y-transparent border-l-[var(--color-gold)]" />
+                      </span>
+                    </button>
+                  </>
+                )}
               </div>
             </div>
 
