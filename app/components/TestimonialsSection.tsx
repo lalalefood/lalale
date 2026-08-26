@@ -162,14 +162,12 @@ export function TestimonialsSection() {
     >
       <div className="mx-auto max-w-screen-2xl">
         <Reveal>
-          <div className="max-w-4xl">
+          <div className="flex flex-col items-center">
             <p className="text-xs font-semibold uppercase tracking-[0.42em] text-[var(--color-gold)]">
               Testimonials
             </p>
-            <h2 className="mt-5 max-w-4xl text-4xl font-light leading-[1.02] text-white sm:text-5xl md:text-6xl font-[family:var(--font-accent-family)]">
-              Don&apos;t take our word for it.
-              <br />
-              Hear it from our partners.
+            <h2 className="mt-5 max-w-4xl text-4xl font-light leading-[1.02] text-white sm:text-4xl md:text-5xl font-[family:var(--font-accent-family)]">
+              Hear it from our clients.
             </h2>
           </div>
         </Reveal>
