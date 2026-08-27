@@ -59,7 +59,7 @@ export function FoodCarousel() {
                 src={slide.img}
                 alt={slide.name}
                 fill
-                loading={i < 4 ? "eager" : "lazy"}
+                loading={i === 0 ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 80vw, 24rem"
                 className="object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.045]"
               />

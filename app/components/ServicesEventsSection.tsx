@@ -122,8 +122,8 @@ export function ServicesEventsSection() {
                 src={service.image}
                 alt={service.title}
                 fill
-                loading={index < 2 ? "eager" : "lazy"}
-                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1279px) 50vw, 33vw"
                 className="object-cover transition duration-700 ease-out group-hover:scale-[1.035] group-hover:brightness-[1.05]"
               />
 

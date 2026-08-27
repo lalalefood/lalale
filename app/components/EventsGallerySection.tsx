@@ -71,8 +71,8 @@ export function EventsGallerySection() {
                 src={item.image}
                 alt={item.title}
                 fill
-                loading={index < 3 ? "eager" : "lazy"}
-                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1279px) 50vw, 40vw"
                 className="object-cover transition duration-700 ease-out group-hover:scale-[1.03] group-hover:brightness-[1.03]"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,6,0.04)_0%,rgba(6,6,6,0.08)_38%,rgba(6,6,6,0.58)_100%)]" />

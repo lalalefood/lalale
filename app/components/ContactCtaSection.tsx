@@ -12,7 +12,7 @@ export function ContactCtaSection() {
           src="/assets/hero.jpg"
           alt="Jamaican plating in warm firelight"
           fill
-          loading="eager"
+          loading="lazy"
           sizes="100vw"
           className="object-cover object-center opacity-42"
         />
