@@ -37,6 +37,10 @@ import JamaicaPattie from "@/public/assets/images/menu_page/jamaica_patie.png";
 import ChocolateBun from "@/public/assets/images/menu_page/chocolate_bun.png";
 import WildForrestCake from "@/public/assets/images/menu_page/WildForrestCake.png";
 
+import SauceMarinade from "@/public/assets/images/menu_page/sauces/jerkMarinade.jpeg"
+import SauceEating from "@/public/assets/images/menu_page/sauces/jerkEatingSauce.jpeg"
+import SauceSauce from "@/public/assets/images/menu_page/sauces/jerkSauce.jpeg"
+
 import type { StaticImageData } from "next/image";
 
 export type Category =
@@ -309,5 +313,26 @@ export const dishes: Dish[] = [
     image: WildForrestCake,
     align: "left",
     categories: ["DESSERTS"],
+  },
+  {
+    title: "Jerk Marinade",
+    text: "Use to marinade your meet over night or just before cooking. Get the real taste of Jerk.",
+    image: SauceMarinade,
+    align: "left",
+    categories: ["SAUCES"],
+  },
+  {
+    title: "Jerk Eating Sauce",
+    text: "Instant taste of Jerk. Pour on any food and eat. Use as a ketchup.",
+    image: SauceEating,
+    align: "right",
+    categories: ["SAUCES"],
+  },
+  {
+    title: "Jerk Sauce",
+    text: "For Jerking Chicken, Pork or which ever meet you fancy. This Sauce is also suitable for vegetarians, but made for jerking chicken with the taste of Portland Jamaica. You only can find this taste in Jamaica.",
+    image: SauceSauce,
+    align: "left",
+    categories: ["SAUCES"],
   },
 ];

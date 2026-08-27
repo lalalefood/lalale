@@ -29,11 +29,22 @@ export default function MenuPage() {
     [],
   );
   const [activeCategory, setActiveCategory] = useState<Category>(categories[0] ?? "CHICKEN");
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">("left");
 
   const filteredDishes = useMemo(
     () => dishes.filter((dish) => dish.categories.includes(activeCategory)),
     [activeCategory],
   );
+
+  const handleCategoryChange = (nextCategory: Category) => {
+    if (nextCategory === activeCategory) return;
+
+    const currentIndex = categories.indexOf(activeCategory);
+    const nextIndex = categories.indexOf(nextCategory);
+
+    setSlideDirection(nextIndex > currentIndex ? "left" : "right");
+    setActiveCategory(nextCategory);
+  };
 
   return (
     <main
@@ -90,7 +101,7 @@ export default function MenuPage() {
             <button
               key={category}
               type="button"
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleCategoryChange(category)}
               className={[
                 "menu-category-pill",
                 activeCategory === category ? "is-active" : "",
@@ -104,7 +115,10 @@ export default function MenuPage() {
 
       {/* Dishes */}
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div key={activeCategory} className="menu-category-panel">
+        <div
+          key={activeCategory}
+          className={`menu-category-panel menu-category-panel--${slideDirection}`}
+        >
           {filteredDishes.map((dish) => (
             <article
               key={`${activeCategory}-${dish.title}`}
