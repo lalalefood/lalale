@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Hammer, Lock, Sparkles } from "lucide-react";
 
+
 const cards = [
   {
     title: "Lalale Food",
