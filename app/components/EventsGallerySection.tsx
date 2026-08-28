@@ -3,35 +3,95 @@ import { Reveal } from "./Reveal";
 
 const galleryItems = [
   {
-    title: "Garden buffet at dusk",
-    image: "/assets/event-wedding.jpg",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat1.png",
     className: "md:col-span-6 md:row-span-2",
   },
   {
-    title: "Corporate service line",
-    image: "/assets/event-corporate.jpg",
-    className: "md:col-span-2 md:row-span-1",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat2.jpg",
+    className: "md:col-span-3 md:row-span-1",
   },
   {
-    title: "Late-night pop-up crowd",
-    image: "/assets/event-popup.jpg",
-    className: "md:col-span-2 md:row-span-1",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat3.jpg",
+    className: "md:col-span-3 md:row-span-1",
   },
   {
-    title: "Kitchen energy",
-    image: "/assets/story-founders.jpg",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat4.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  },
+  {
+    title: "Boat party",
+    image: "/assets/images/gallery/boat5.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  },
+  {
+    title: "Boat party",
+    image: "/assets/images/gallery/boat6.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Signature plating",
-    image: "/assets/dish-fish.jpg",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat7.jpg",
     className: "md:col-span-4 md:row-span-1",
   },
   {
-    title: "Private dinner finish",
-    image: "/assets/cta-plating.jpg",
+    title: "Boat party",
+    image: "/assets/images/gallery/boat10.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Boat party",
+    image: "/assets/images/gallery/boat12.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Boat party",
+    image: "/assets/images/gallery/boat13.jpg",
+    className: "md:col-span-8 md:row-span-1",
+  },
+  {
+    title: "Book launch banquet",
+    image: "/assets/images/gallery/book.jpg",
+    className: "md:col-span-8 md:row-span-1",
+  },
+  {
+    title: "Corporate reception",
+    image: "/assets/images/gallery/company.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Chef led dinner",
+    image: "/assets/images/gallery/dinner.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Evening plates",
+    image: "/assets/images/gallery/dinner2.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Dinner service details",
+    image: "/assets/images/gallery/dinner2.jpg",
+    className: "md:col-span-4 md:row-span-1",
+  },
+  {
+    title: "Table finish",
+    image: "/assets/images/gallery/dinner3.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  },
+  {
+    title: "Friends around food",
+    image: "/assets/images/gallery/friends.jpg",
     className: "md:col-span-6 md:row-span-1",
   },
+  {
+    title: "Romantic private dinner",
+    image: "/assets/images/gallery/romantic.jpg",
+    className: "md:col-span-3 md:row-span-1",
+  }
 ];
 
 export function EventsGallerySection() {
@@ -56,10 +116,10 @@ export function EventsGallerySection() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 md:auto-rows-[16rem] md:grid-cols-10 md:grid-flow-dense lg:gap-6">
+        <div className="mt-14 grid grid-cols-1 gap-5 md:auto-rows-[16rem] md:grid-cols-12 md:grid-flow-dense lg:gap-6">
           {galleryItems.map((item, index) => (
             <Reveal
-              key={item.title}
+              key={`${item.title}-${item.image}-${index}`}
               as="figure"
               delay={index * 70}
               className={[
