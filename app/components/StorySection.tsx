@@ -80,14 +80,14 @@ export function StorySection() {
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center">
+            {/* <div className="mt-8 flex justify-center">
               <Link
                 href="/history"
                 className="inline-flex min-w-64 items-center justify-center rounded-full border border-white/18 bg-white/6 px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-white backdrop-blur-sm transition duration-300 hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[#17120e]"
               >
                 View Full Timeline
               </Link>
-            </div>
+            </div> */}
           </div>
         </Reveal>
       </div>
