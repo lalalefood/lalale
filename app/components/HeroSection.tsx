@@ -1,18 +1,72 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+const heroVideoUrl =
+  "https://iframe.mediadelivery.net/embed/641422/f2673b21-f27d-4461-ac61-3623eeabd3f0?autoplay=true&loop=true&muted=true&preload=true&responsive=false&controls=false";
+const heroPosterUrl =
+  "https://vz-9f1a8ca9-486.b-cdn.net/f2673b21-f27d-4461-ac61-3623eeabd3f0/thumbnail.jpg";
+
 export function HeroSection() {
+  const [showVideo, setShowVideo] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const revealTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!mediaQuery.matches || reducedMotionQuery.matches) {
+      return;
+    }
+
+    const frameId = window.requestAnimationFrame(() => setShowVideo(true));
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      if (revealTimerRef.current != null) {
+        window.clearTimeout(revealTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleVideoLoad = () => {
+    revealTimerRef.current = window.setTimeout(() => {
+      setIsVideoReady(true);
+    }, 900);
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-[var(--color-charcoal)] text-[var(--color-cream)]">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/hero-poster.png"
-        aria-hidden="true"
-      >
-        <source src="/assets/videos/hero_video.MOV" type="video/mp4" />
-      </video>
+      <Image
+        src={heroPosterUrl}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className={[
+          "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
+          isVideoReady ? "opacity-0" : "opacity-100",
+        ].join(" ")}
+      />
+      {showVideo ? (
+        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
+          <iframe
+            src={heroVideoUrl}
+            className={[
+              "absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-full min-w-[177.777778vh] -translate-x-1/2 -translate-y-1/2 border-0 transition-opacity duration-700",
+              isVideoReady ? "opacity-100" : "opacity-0",
+            ].join(" ")}
+            allow="autoplay; fullscreen; picture-in-picture"
+            loading="eager"
+            title="LALALE background video"
+            aria-hidden="true"
+            tabIndex={-1}
+            onLoad={handleVideoLoad}
+          />
+        </div>
+      ) : null}
 
       <div className="hero-overlay absolute inset-0" />
       <div className="hero-vignette absolute inset-0" />

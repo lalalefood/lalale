@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Hammer, Lock, Sparkles } from "lucide-react";
+import { ArrowRight, CookingPot, Lock } from "lucide-react";
 
 
 const cards = [
@@ -36,41 +36,10 @@ export default function HomePage() {
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(rgba(255,255,255,0.55)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:112px_112px]" />
 
       <section className="relative mx-auto flex min-h-screen max-w-screen-2xl flex-col px-5 py-6 sm:px-8 lg:px-12">
-        <header className="flex flex-col gap-5 rounded-full border border-white/8 bg-white/[0.02] px-5 py-4 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:px-7">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-sm font-semibold text-white/88">
-              LG
-            </div>
-            <div>
-              <p className="text-lg font-semibold uppercase tracking-[0.08em] text-white/92">Lalale Group</p>
-              <p className="text-[11px] uppercase tracking-[0.32em] text-white/38">A bit of Jamaica</p>
-            </div>
-          </div>
-
-          <nav className="flex items-center justify-center gap-6 text-sm text-white/54">
-            <a href="#sobre" className="transition hover:text-[var(--color-gold)]">
-              Sobre
-            </a>
-            <a href="#explore" className="transition hover:text-[var(--color-gold)]">
-              Explorar
-            </a>
-            <a href="#contato" className="transition hover:text-[var(--color-gold)]">
-              Contato
-            </a>
-          </nav>
-
-          <div className="flex justify-end">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/62">
-              <Hammer className="h-3.5 w-3.5" />
-              Em Construção
-            </span>
-          </div>
-        </header>
-
         <div className="flex flex-1 flex-col justify-center py-14 sm:py-16 lg:py-20">
           <div className="relative mx-auto max-w-5xl text-center">
             <div className="relative inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/72 shadow-[0_10px_28px_rgba(0,0,0,0.14)]">
-              <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold)]/70" />
+              <CookingPot className="h-3.5 w-3.5 text-[var(--color-gold)]/70" />
               Jamaica&apos;s Flavour &amp; Culture
             </div>
 
@@ -179,38 +148,6 @@ export default function HomePage() {
                 </Link>
               )
             ))}
-          </div>
-
-          <div id="contato" className="relative mx-auto mt-14 flex w-full max-w-5xl flex-col items-center">
-            <p className="mb-3 text-center text-xl text-white/34 [font-family:var(--font-accent-family)]">
-              click to explore
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/food"
-                className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-6 py-3 text-sm font-semibold tracking-[0.16em] text-white/88 transition duration-300 hover:border-white/16 hover:bg-white/[0.08] hover:text-white"
-              >
-                Conhecer Lalale Food
-              </Link>
-              <Link
-                href="/food#services"
-                aria-disabled="true"
-                className="pointer-events-none inline-flex items-center rounded-full border border-white/8 bg-white/[0.03] px-6 py-3 text-sm font-semibold tracking-[0.16em] text-white/42"
-              >
-                Lalale Events · Coming Soon
-              </Link>
-              <span
-                aria-disabled="true"
-                className="inline-flex items-center rounded-full border border-white/8 bg-white/[0.03] px-6 py-3 text-sm font-semibold tracking-[0.16em] text-white/42"
-              >
-                Lalale Food Producer · Coming Soon
-              </span>
-            </div>
-
-            <p className="mt-5 text-center text-sm leading-7 text-white/50 sm:text-[15px]">
-              Explore the food universe now. Events and production continue expanding behind the scenes.
-            </p>
           </div>
         </div>
       </section>

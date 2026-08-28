@@ -17,6 +17,7 @@ type VideoTestimonial = TestimonialBase & {
   type: "video";
   quote: string;
   video: string;
+  poster: string;
 };
 
 type Testimonial = TextTestimonial | VideoTestimonial;
@@ -28,6 +29,7 @@ const testimonials: Testimonial[] = [
     name: "Daniel Osei",
     role: "Corporate Launch",
     video: "/assets/videos/testemonials1.mp4",
+    poster: "/assets/videos/posters/testemonials1.mp4.png",
   },
   // {
   //   type: "text",
@@ -42,6 +44,7 @@ const testimonials: Testimonial[] = [
     name: "Naomi Clarke",
     role: "Private Dining",
     video: "/assets/videos/testemonials2.mp4",
+    poster: "/assets/videos/posters/testemonials2.mp4.png",
   },
   {
     type: "video",
@@ -49,6 +52,7 @@ const testimonials: Testimonial[] = [
     name: "Marsha Ellis",
     role: "Corporate Service",
     video: "/assets/videos/testemonials3.mp4",
+    poster: "/assets/videos/posters/testemonials3.mp4.png",
   },
   {
     type: "video",
@@ -56,6 +60,7 @@ const testimonials: Testimonial[] = [
     name: "Leon Grant",
     role: "Office Lunch",
     video: "/assets/videos/testemonials4.mp4",
+    poster: "/assets/videos/posters/testemonials4.mp4.png",
   },
   {
     type: "video",
@@ -63,6 +68,7 @@ const testimonials: Testimonial[] = [
     name: "Sonia Reid",
     role: "Corporate Service",
     video: "/assets/videos/testemonials5.mp4",
+    poster: "/assets/videos/posters/testemonials5.mp4.png",
   },
   {
     type: "video",
@@ -70,6 +76,7 @@ const testimonials: Testimonial[] = [
     name: "Andre Wallace",
     role: "Private Celebration",
     video: "/assets/videos/testemonials6.mp4",
+    poster: "/assets/videos/posters/testemonials6.mp4.png",
   },
 ];
 
@@ -100,8 +107,9 @@ function VideoTestimonialCard({ item }: { item: VideoTestimonial }) {
           ref={videoRef}
           className="h-full w-full object-cover"
           src={item.video}
+          poster={item.poster}
           playsInline
-          preload="metadata"
+          preload="none"
           controls={isPlaying}
           onPause={handlePause}
           onEnded={handlePause}
