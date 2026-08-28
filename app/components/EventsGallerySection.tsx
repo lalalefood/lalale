@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
 
+
 const galleryItems = [
   {
     title: "Boat party",
