@@ -53,7 +53,7 @@ export default function MenuPage() {
     >
       <div className="mx-auto max-w-6xl px-6 pt-10">
         <Link
-          href="/"
+          href="/food"
           className="inline-flex items-center gap-3 text-sm tracking-[0.18em] text-white/68 transition hover:text-[var(--gold)]"
         >
           <span aria-hidden className="text-base leading-none">←</span>
