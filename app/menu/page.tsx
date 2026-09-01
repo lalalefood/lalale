@@ -53,7 +53,7 @@ export default function MenuPage() {
     >
       <div className="mx-auto max-w-6xl px-6 pt-10">
         <Link
-          href="/"
+          href="/food"
           className="inline-flex items-center gap-3 text-sm tracking-[0.18em] text-white/68 transition hover:text-[var(--gold)]"
         >
           <span aria-hidden className="text-base leading-none">←</span>
@@ -161,7 +161,7 @@ export default function MenuPage() {
             We offer bespoke culinary experiences tailored for Private Parties, Corporate Events, Concerts, Fine Dining, Office Lunches, Weddings, Funerals, Chef’s Tables, and School Dinners. Our head chef and dedicated team meticulously oversee every detail to bring the distinctive flavours of Jamaica directly to your event.
           </p>
           <a
-            href="#contact-form"
+            href="/food#contact-form"
             className="font-display mt-8 inline-block border border-gold px-8 py-3 text-sm tracking-[0.2em] uppercase text-gold transition-colors hover:bg-gold hover:text-background"
             style={{ ["--gold" as string]: "var(--gold)" }}
           >
