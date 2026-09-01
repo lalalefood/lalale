@@ -1,23 +1,24 @@
 "use client";
 
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const heroVideoUrl =
-  "https://iframe.mediadelivery.net/embed/641422/f2673b21-f27d-4461-ac61-3623eeabd3f0?autoplay=true&loop=true&muted=true&preload=true&responsive=false&controls=false";
+  "https://iframe.mediadelivery.net/embed/641422/f2673b21-f27d-4461-ac61-3623eeabd3f0?autoplay=true&loop=true&muted=true&preload=true&responsive=false&controls=false&playsinline=true";
 const heroPosterUrl =
   "https://vz-9f1a8ca9-486.b-cdn.net/f2673b21-f27d-4461-ac61-3623eeabd3f0/thumbnail.jpg";
 
 export function HeroSection() {
   const [showVideo, setShowVideo] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const revealTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!mediaQuery.matches || reducedMotionQuery.matches) {
+    if (reducedMotionQuery.matches) {
       return;
     }
 
@@ -37,6 +38,8 @@ export function HeroSection() {
     }, 900);
   };
 
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-[var(--color-charcoal)] text-[var(--color-cream)]">
       <Image
@@ -51,7 +54,7 @@ export function HeroSection() {
         ].join(" ")}
       />
       {showVideo ? (
-        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <iframe
             src={heroVideoUrl}
             className={[
@@ -76,6 +79,7 @@ export function HeroSection() {
         <header className="flex items-center justify-between px-6 py-6 sm:px-10 lg:px-14">
           <a
             href="#hero"
+            onClick={closeMobileMenu}
             className="text-xl font-light tracking-[0.22em] text-white/88 uppercase font-[family:var(--font-accent-family)]"
           >
             L.
@@ -89,7 +93,7 @@ export function HeroSection() {
                 </a>
               </li>
               <li>
-                <a href="#about" className="transition hover:text-[var(--color-green)]">
+                <a href="#about" className="transition hover:text-[var(--color-jade)]">
                   About
                 </a>
               </li>
@@ -100,7 +104,60 @@ export function HeroSection() {
               </li>
             </ul>
           </nav>
+
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
+            className="relative z-30 inline-flex size-11 items-center justify-center rounded-full border border-white/12 bg-black/20 text-white/80 backdrop-blur-md transition hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] md:hidden"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="food-mobile-menu"
+          >
+            {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </header>
+
+        <div
+          id="food-mobile-menu"
+          className={[
+            "absolute left-6 right-6 top-20 z-20 overflow-hidden rounded-3xl border border-white/12 bg-[rgba(17,14,12,0.82)] shadow-[0_24px_70px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-300 md:hidden",
+            isMobileMenuOpen
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none -translate-y-3 opacity-0",
+          ].join(" ")}
+        >
+          <nav aria-label="Mobile primary">
+            <ul className="divide-y divide-white/10 px-5 py-3 text-[0.78rem] font-semibold tracking-[0.28em] text-white/76 uppercase">
+              <li>
+                <a
+                  href="/menu"
+                  onClick={closeMobileMenu}
+                  className="block py-4 transition hover:text-[var(--color-gold)]"
+                >
+                  Menu
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  onClick={closeMobileMenu}
+                  className="block py-4 transition hover:text-[var(--color-jade)]"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact-form"
+                  onClick={closeMobileMenu}
+                  className="block py-4 transition hover:text-[var(--color-sky)]"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
         <div
           id="hero"
@@ -116,7 +173,7 @@ export function HeroSection() {
             </h1>
 
             <div className="hero-fade-delay-3 mt-10 flex items-center justify-center gap-3">
-              <span className="h-px w-14 bg-[linear-gradient(90deg,transparent,var(--color-green),transparent)]" />
+              <span className="h-px w-14 bg-[linear-gradient(90deg,transparent,var(--color-jade),transparent)]" />
               <span className="text-xs tracking-[0.45em] text-white/65 uppercase">
                 Foods &amp; Events
               </span>
