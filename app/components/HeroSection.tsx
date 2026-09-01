@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const heroVideoUrl =
-  "https://iframe.mediadelivery.net/embed/641422/f2673b21-f27d-4461-ac61-3623eeabd3f0?autoplay=true&loop=true&muted=true&preload=true&responsive=false&controls=false";
+  "https://iframe.mediadelivery.net/embed/641422/f2673b21-f27d-4461-ac61-3623eeabd3f0?autoplay=true&loop=true&muted=true&preload=true&responsive=false&controls=false&playsinline=true";
 const heroPosterUrl =
   "https://vz-9f1a8ca9-486.b-cdn.net/f2673b21-f27d-4461-ac61-3623eeabd3f0/thumbnail.jpg";
 
@@ -16,10 +16,9 @@ export function HeroSection() {
   const revealTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!mediaQuery.matches || reducedMotionQuery.matches) {
+    if (reducedMotionQuery.matches) {
       return;
     }
 
@@ -55,7 +54,7 @@ export function HeroSection() {
         ].join(" ")}
       />
       {showVideo ? (
-        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <iframe
             src={heroVideoUrl}
             className={[
