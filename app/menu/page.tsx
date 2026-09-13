@@ -19,6 +19,7 @@ const categoryOrder: Category[] = [
   "VEGAN",
   "FESTIVALS",
   "DESSERTS",
+  "FISH",
   "DRINKS",
   "SAUCES"
 ];

@@ -40,6 +40,11 @@ import WildForrestCake from "@/public/assets/images/menu_page/WildForrestCake.pn
 import SauceMarinade from "@/public/assets/images/menu_page/sauces/jerkMarinade.jpeg"
 import SauceEating from "@/public/assets/images/menu_page/sauces/jerkEatingSauce.jpeg"
 import SauceSauce from "@/public/assets/images/menu_page/sauces/jerkSauce.jpeg"
+import EscovitchFish from "@/public/assets/images/menu_page/escovich_fish.jpg"
+import AmouseBouche from "@/public/assets/images/menu_page/amuse_bouche.jpg";
+import BraisedOxtail from "@/public/assets/images/menu_page/braised_oxtail.jpg"
+import JamaicaCornmealPudding from "@/public/assets/images/menu_page/jamaica_cornmeal_pudin.jpg"
+import JerkPuoudingImage from "@/public/assets/images/menu_page/jerk_puouding_chicken.jpg"
 
 import type { StaticImageData } from "next/image";
 
@@ -51,6 +56,7 @@ export type Category =
   | "FESTIVALS"
   | "DESSERTS"
   | "SAUCES"
+  | "FISH"
   | "DRINKS";
 
 export type Dish = {
@@ -224,14 +230,14 @@ export const dishes: Dish[] = [
     categories: ["DRINKS"],
   },
   {
-    title: "Sweet Fruit Cake",
-    text: "Golden crêpes filled with sweet fruit, dusted with powdered sugar, and served with fresh berries.",
+    title: "Luxarious Pancake",
+    text: "Luxarious Pancakes with sour creame fresh berries and seasonal fruites",
     image: SwetFruitCake,
     align: "left",
     categories: ["DESSERTS"],
   },
   {
-    title: "Manish Paperpot",
+    title: "Manish Water/ Paperpot",
     text: "Traditional Jamaican goat soup slow-cooked in a rich, spicy broth infused with herbs and peppers.",
     image: ManishPaperpot,
     align: "right",
@@ -334,5 +340,40 @@ export const dishes: Dish[] = [
     image: SauceSauce,
     align: "left",
     categories: ["SAUCES"],
+  },
+  {
+    title: "Escovitch Fish",
+    text: "Traditional Jamaican fried fish topped with a tangy, spicy escovitch sauce made from pickled vegetables and peppers.",
+    image: EscovitchFish,
+    align: "left",
+    categories: ["FISH"],
+  },
+  {
+    title: "Amuse Bouche",
+    text: "Golden, savory tart slices filled with spiced island vegetables and finished with a rich tangy drizzle.",
+    image: AmouseBouche,
+    align: "right",
+    categories: ["VEGAN"],
+  },
+  {
+    title: "Braised Oxtail",
+    text: "Tender oxtail slow-cooked in a rich, savory sauce with aromatic herbs and spices, served with a side of creamy mashed potatoes.",
+    image: BraisedOxtail,
+    align: "left",
+    categories: ["MEAT"],
+  },
+  {
+    title: "Jamaica Cornmeal Pudding",
+    text: "A traditional Jamaican dessert made with cornmeal, milk, and spices, served warm with a drizzle of maple syrup.",
+    image: JamaicaCornmealPudding,
+    align: "right",
+    categories: ["DESSERTS"],
+  },
+  {
+    title: "Jerk Puouding Chicken",
+    text: "A savory chicken pudding infused with jerk spices, served with a side of tangy dipping sauce.",
+    image: JerkPuoudingImage,
+    align: "right",
+    categories: ["CHICKEN"],
   },
 ];
