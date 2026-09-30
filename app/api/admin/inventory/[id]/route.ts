@@ -18,8 +18,6 @@ export async function PATCH(request: Request, context: InventoryRouteContext) {
 
   const payload = {
     ...parsed.data,
-    image_url: parsed.data.image_url || null,
-    expires_at: parsed.data.expires_at || null,
     updated_at: new Date().toISOString(),
   };
   const { data, error } = await session.supabase

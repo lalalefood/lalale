@@ -28,8 +28,6 @@ export async function POST(request: Request) {
 
   const payload = {
     ...parsed.data,
-    image_url: parsed.data.image_url || null,
-    expires_at: parsed.data.expires_at || null,
     created_by: session.user.id,
   };
   const { data, error } = await session.supabase
