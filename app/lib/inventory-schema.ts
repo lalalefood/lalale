@@ -10,3 +10,9 @@ export const inventoryItemSchema = z.object({
 });
 
 export type InventoryItemInput = z.infer<typeof inventoryItemSchema>;
+
+export const inventoryUsageSchema = z.object({
+  inventory_item_id: z.string().uuid(),
+  quantity: z.coerce.number().positive().max(999999),
+  note: z.string().trim().max(250).optional().default(""),
+});
