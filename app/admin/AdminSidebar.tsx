@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BarChart3,
   Boxes,
@@ -17,12 +18,12 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { label: "Dashboard", icon: LayoutDashboard, available: false },
-  { label: "Items", icon: Boxes, available: true },
-  { label: "Tags", icon: Tags, available: false },
-  { label: "Reports", icon: BarChart3, available: false },
-  { label: "Purchasing", icon: ShoppingCart, available: false },
-  { label: "Invoicing", icon: ReceiptText, available: false },
+  { label: "Dashboard", icon: LayoutDashboard, href: "", available: false },
+  { label: "Items", icon: Boxes, href: "/admin", available: true },
+  { label: "Tags", icon: Tags, href: "", available: false },
+  { label: "Reports", icon: BarChart3, href: "", available: false },
+  { label: "Shopping list", icon: ShoppingCart, href: "/admin/shopping-list", available: true },
+  { label: "Invoicing", icon: ReceiptText, href: "", available: false },
 ];
 
 type AdminSidebarProps = {
@@ -31,6 +32,7 @@ type AdminSidebarProps = {
 
 export function AdminSidebar({ name }: AdminSidebarProps) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const content = (
     <>
@@ -53,23 +55,20 @@ export function AdminSidebar({ name }: AdminSidebarProps) {
       </label>
 
       <nav className="mt-7 grid grid-cols-2 gap-3" aria-label="Admin navigation">
-        {navigation.map(({ label, icon: Icon, available }) => (
-          <button
-            key={label}
-            type="button"
-            disabled={!available}
-            title={available ? label : `${label} — coming soon`}
-            className={`relative flex min-h-28 flex-col items-center justify-center gap-3 rounded-2xl border text-xs transition-all ${
-              available
-                ? "border-[#FECF02] bg-[#FECF02] text-[#3B1B02] shadow-lg shadow-black/20"
-                : "border-white/8 bg-white/6 text-[#F3E8DE]/58 disabled:cursor-not-allowed"
-            }`}
-          >
-            <Icon className="size-5" />
-            <span>{label}</span>
-            {!available ? <LockKeyhole className="absolute top-3 right-3 size-3 opacity-35" /> : null}
-          </button>
-        ))}
+        {navigation.map(({ label, icon: Icon, href, available }) => {
+          const active = available && pathname === href;
+          const className = `relative flex min-h-28 flex-col items-center justify-center gap-3 rounded-2xl border text-xs transition-all ${active ? "border-[#FECF02] bg-[#FECF02] text-[#3B1B02] shadow-lg shadow-black/20" : available ? "border-white/12 bg-white/7 text-[#F3E8DE] hover:border-[#FECF02]/60 hover:bg-white/10" : "border-white/8 bg-white/6 text-[#F3E8DE]/58 disabled:cursor-not-allowed"}`;
+
+          return available ? (
+            <Link key={label} href={href} onClick={() => setOpen(false)} className={className}>
+              <Icon className="size-5" /><span>{label}</span>
+            </Link>
+          ) : (
+            <button key={label} type="button" disabled title={`${label} — coming soon`} className={className}>
+              <Icon className="size-5" /><span>{label}</span><LockKeyhole className="absolute top-3 right-3 size-3 opacity-35" />
+            </button>
+          );
+        })}
       </nav>
 
       <div className="mt-auto border-t border-[#F3E8DE]/12 pt-5">

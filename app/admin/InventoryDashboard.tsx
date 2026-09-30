@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Archive, Bell, Boxes, CalendarDays, ChevronDown, CircleGauge, Ellipsis, Layers3,
-  LoaderCircle, PackageX, Pencil, Plus, Search, SlidersHorizontal, Trash2, X,
+  LoaderCircle, PackageX, Pencil, Plus, Search, ShoppingCart, SlidersHorizontal, Trash2, X,
 } from "lucide-react";
 import {
   measurementUnits, type InventoryItem, type InventoryStatus, type MeasurementUnit,
@@ -29,6 +29,7 @@ export function InventoryDashboard({ initialItems, setupError, adminName, today 
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [notice, setNotice] = useState("");
 
   const normalizedSearch = search.trim().toLowerCase();
   const filteredItems = items.filter((item) =>
@@ -66,9 +67,26 @@ export function InventoryDashboard({ initialItems, setupError, adminName, today 
     if (response.ok) setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
     setOpenMenu(null);
   }
+  async function addToShoppingList(item: InventoryItem) {
+    const response = await fetch("/api/admin/shopping-list", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: item.name,
+        quantity: 1,
+        measurement_unit: item.measurement_unit,
+        unit_quantity: item.unit_quantity,
+        inventory_item_id: item.id,
+      }),
+    });
+    setOpenMenu(null);
+    setNotice(response.ok ? `${item.name} added to the shopping list.` : "Unable to add this item.");
+    window.setTimeout(() => setNotice(""), 3000);
+  }
 
   return (
     <main className="min-h-screen px-4 pt-19 pb-10 sm:px-7 lg:px-9 lg:pt-8 xl:px-12">
+      {notice ? <div role="status" className="fixed right-4 bottom-4 z-[60] max-w-sm rounded-2xl bg-[#3B1B02] px-5 py-4 text-xs font-semibold text-[#F3E8DE] shadow-2xl">{notice}</div> : null}
       <header className="flex flex-col gap-6 border-b border-[#3B1B02]/12 pb-7 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-[0.62rem] font-bold tracking-[0.3em] text-[#009A39] uppercase">Lalale operations</p>
@@ -100,11 +118,11 @@ export function InventoryDashboard({ initialItems, setupError, adminName, today 
         {filteredItems.length ? <>
           <div className="mt-6 hidden overflow-x-auto xl:block">
             <table className="w-full min-w-[820px] border-separate border-spacing-0 text-left">
-              <thead><tr className="bg-[#F3E8DE] text-[0.62rem] tracking-[0.12em] text-[#3B1B02]/58 uppercase"><th className="rounded-l-xl px-4 py-4">Item name</th><th className="px-4 py-4">Quantity</th><th className="px-4 py-4">Measure</th><th className="px-4 py-4">Unit quantity</th><th className="px-4 py-4">Total amount</th><th className="px-4 py-4">Status</th><th className="rounded-r-xl px-4 py-4 text-right">Action</th></tr></thead>
-              <tbody>{filteredItems.map((item) => <tr key={item.id} className="group text-xs text-[#3B1B02] transition-colors hover:bg-[#FECF02]/7"><td className="border-b border-[#3B1B02]/8 px-4 py-4 font-semibold">{item.name}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{formatNumber(item.quantity)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{unitLabels[item.measurement_unit]}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{formatUnitQuantity(item)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4 font-semibold">{formatTotalAmount(item)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4"><StatusBadge status={item.status} /></td><td className="relative border-b border-[#3B1B02]/8 px-4 py-4 text-right"><button type="button" onClick={() => setOpenMenu(openMenu === item.id ? null : item.id)} className="rounded-full border border-[#3B1B02]/12 p-2 transition-colors hover:bg-[#3B1B02] hover:text-[#F3E8DE]" aria-label={`Actions for ${item.name}`}><Ellipsis className="size-4" /></button>{openMenu === item.id ? <ActionMenu item={item} onEdit={openEditEditor} onDelete={deleteItem} /> : null}</td></tr>)}</tbody>
+              <thead><tr className="bg-[#F3E8DE] text-[0.68rem] tracking-[0.12em] text-[#3B1B02]/58 uppercase"><th className="rounded-l-xl px-4 py-4">Item name</th><th className="px-4 py-4">Quantity</th><th className="px-4 py-4">Measure</th><th className="px-4 py-4">Unit quantity</th><th className="px-4 py-4">Total amount</th><th className="px-4 py-4">Status</th><th className="rounded-r-xl px-4 py-4 text-right">Action</th></tr></thead>
+              <tbody>{filteredItems.map((item) => <tr key={item.id} className={`group text-sm text-[#3B1B02] transition-colors ${item.status === "low_stock" ? "bg-[#B42318]/[0.055] hover:bg-[#B42318]/[0.085]" : "hover:bg-[#FECF02]/7"}`}><td className="border-b border-[#3B1B02]/8 px-4 py-4 font-semibold">{item.name}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{formatNumber(item.quantity)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{unitLabels[item.measurement_unit]}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4">{formatUnitQuantity(item)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4 font-semibold">{formatTotalAmount(item)}</td><td className="border-b border-[#3B1B02]/8 px-4 py-4"><StatusBadge status={item.status} /></td><td className="relative border-b border-[#3B1B02]/8 px-4 py-4 text-right"><button type="button" onClick={() => setOpenMenu(openMenu === item.id ? null : item.id)} className="rounded-full border border-[#3B1B02]/12 p-2 transition-colors hover:bg-[#3B1B02] hover:text-[#F3E8DE]" aria-label={`Actions for ${item.name}`}><Ellipsis className="size-4" /></button>{openMenu === item.id ? <ActionMenu item={item} onEdit={openEditEditor} onDelete={deleteItem} onShoppingList={addToShoppingList} /> : null}</td></tr>)}</tbody>
             </table>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:hidden">{filteredItems.map((item) => <article key={item.id} className="rounded-2xl border border-[#3B1B02]/9 bg-[#F3E8DE]/55 p-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><h3 className="truncate text-sm font-bold text-[#3B1B02] normal-case">{item.name}</h3><p className="mt-1 text-[0.68rem] text-[#3B1B02]/55">{formatNumber(item.quantity)} {item.quantity === 1 ? "stock unit" : "stock units"}</p></div><StatusBadge status={item.status} /></div><dl className="mt-4 grid grid-cols-2 gap-3 border-t border-[#3B1B02]/8 pt-4 text-[0.68rem]"><div><dt className="text-[#3B1B02]/45">Unit size</dt><dd className="mt-1 font-semibold text-[#3B1B02]">{formatUnitQuantity(item)}</dd></div><div className="text-right"><dt className="text-[#3B1B02]/45">Total amount</dt><dd className="mt-1 font-semibold text-[#3B1B02]">{formatTotalAmount(item)}</dd></div></dl><div className="mt-4 flex gap-2"><button type="button" onClick={() => openEditEditor(item)} className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[#3B1B02]/14 py-2 text-[0.65rem] font-bold uppercase"><Pencil className="size-3.5" /> Edit</button><button type="button" onClick={() => deleteItem(item)} className="grid size-9 place-items-center rounded-full border border-black/12" aria-label={`Delete ${item.name}`}><Trash2 className="size-3.5" /></button></div></article>)}</div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:hidden">{filteredItems.map((item) => <article key={item.id} className={`rounded-2xl border p-4 ${item.status === "low_stock" ? "border-[#B42318]/15 bg-[#B42318]/[0.055]" : "border-[#3B1B02]/9 bg-[#F3E8DE]/55"}`}><div className="flex items-start justify-between gap-3"><div className="min-w-0"><h3 className="truncate text-base font-bold text-[#3B1B02] normal-case">{item.name}</h3><p className="mt-1 text-xs text-[#3B1B02]/55">{formatNumber(item.quantity)} {item.quantity === 1 ? "stock unit" : "stock units"}</p></div><StatusBadge status={item.status} /></div><dl className="mt-4 grid grid-cols-2 gap-3 border-t border-[#3B1B02]/8 pt-4 text-xs"><div><dt className="text-[#3B1B02]/45">Unit size</dt><dd className="mt-1 font-semibold text-[#3B1B02]">{formatUnitQuantity(item)}</dd></div><div className="text-right"><dt className="text-[#3B1B02]/45">Total amount</dt><dd className="mt-1 font-semibold text-[#3B1B02]">{formatTotalAmount(item)}</dd></div></dl><div className="mt-4 flex gap-2"><button type="button" onClick={() => addToShoppingList(item)} className="grid size-9 place-items-center rounded-full border border-[#3B1B02]/14" aria-label={`Add ${item.name} to shopping list`}><ShoppingCart className="size-3.5" /></button><button type="button" onClick={() => openEditEditor(item)} className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[#3B1B02]/14 py-2 text-[0.65rem] font-bold uppercase"><Pencil className="size-3.5" /> Restock / edit</button><button type="button" onClick={() => deleteItem(item)} className="grid size-9 place-items-center rounded-full border border-black/12" aria-label={`Delete ${item.name}`}><Trash2 className="size-3.5" /></button></div></article>)}</div>
         </> : <div className="mt-6 grid min-h-72 place-items-center rounded-2xl border border-dashed border-[#3B1B02]/15 bg-[#F3E8DE]/45 px-6 text-center"><div><span className="mx-auto grid size-14 place-items-center rounded-full bg-[#FECF02]/25 text-[#3B1B02]"><Boxes className="size-6" /></span><h3 className="mt-4 font-[family:var(--font-accent-family)] text-xl text-[#3B1B02] normal-case">No inventory items found</h3><p className="mt-2 text-xs leading-5 text-[#3B1B02]/52">{items.length ? "Try another search or status filter." : "Add your first ingredient to start tracking stock."}</p></div></div>}
       </section>
 
@@ -115,7 +133,7 @@ export function InventoryDashboard({ initialItems, setupError, adminName, today 
 
 function FormField({ label, children }: { label: string; children: React.ReactNode }) { return <label className="block space-y-2"><span className="text-[0.65rem] font-bold tracking-[0.14em] text-[#3B1B02]/65 uppercase">{label}</span>{children}</label>; }
 function StatusBadge({ status }: { status: InventoryStatus }) { const detail = statusDetails[status]; return <span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[0.6rem] font-bold ${detail.className}`}>{detail.label}</span>; }
-function ActionMenu({ item, onEdit, onDelete }: { item: InventoryItem; onEdit: (item: InventoryItem) => void; onDelete: (item: InventoryItem) => void }) { return <div className="absolute top-13 right-3 z-20 w-36 rounded-xl border border-[#3B1B02]/10 bg-white p-1.5 text-left shadow-xl"><button type="button" onClick={() => onEdit(item)} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-[#F3E8DE]"><Pencil className="size-3.5" /> Edit item</button><button type="button" onClick={() => onDelete(item)} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-black/7"><Trash2 className="size-3.5" /> Delete</button></div>; }
+function ActionMenu({ item, onEdit, onDelete, onShoppingList }: { item: InventoryItem; onEdit: (item: InventoryItem) => void; onDelete: (item: InventoryItem) => void; onShoppingList: (item: InventoryItem) => void }) { return <div className="absolute top-13 right-3 z-20 w-40 rounded-xl border border-[#3B1B02]/10 bg-white p-1.5 text-left shadow-xl"><button type="button" onClick={() => onShoppingList(item)} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-[#FECF02]/18"><ShoppingCart className="size-3.5" /> Add to list</button><button type="button" onClick={() => onEdit(item)} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-[#F3E8DE]"><Pencil className="size-3.5" /> Restock / edit</button><button type="button" onClick={() => onDelete(item)} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-black/7"><Trash2 className="size-3.5" /> Delete</button></div>; }
 function formatNumber(value: number) { return new Intl.NumberFormat("en-GB", { maximumFractionDigits: 3 }).format(value); }
 function formatUnitQuantity(item: InventoryItem) { return `${formatNumber(item.unit_quantity)} ${unitLabels[item.measurement_unit]}`; }
 function formatTotalAmount(item: InventoryItem) { return `${formatNumber(item.quantity * item.unit_quantity)} ${unitLabels[item.measurement_unit]}`; }
