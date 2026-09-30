@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#3B1B02" />
+    <title>LALALE Admin · Offline</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #f3e8de; color: #3b1b02; font-family: ui-sans-serif, sans-serif; }
+      main { width: min(100%, 420px); text-align: center; }
+      img { width: 88px; height: 88px; border-radius: 24px; }
+      h1 { margin: 24px 0 8px; font-family: Georgia, serif; font-size: 28px; font-weight: 500; }
+      p { margin: 0 auto; max-width: 34ch; color: rgba(59, 27, 2, .62); font-size: 14px; line-height: 1.6; }
+      button { margin-top: 24px; border: 0; border-radius: 999px; padding: 13px 22px; background: #3b1b02; color: #f3e8de; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/assets/images/logos/pwa_logo.png" alt="LALALE" />
+      <h1>You are offline</h1>
+      <p>Reconnect to the internet to safely load and update the latest inventory data.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+    </main>
+  </body>
+</html>
