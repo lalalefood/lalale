@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Archive,
   Bell,
@@ -79,7 +80,11 @@ export function InventoryDashboard({
   const [form, setForm] = useState(blankForm);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [openMenu, setOpenMenu] = useState<{
+    itemId: string;
+    top: number;
+    left: number;
+  } | null>(null);
   const [notice, setNotice] = useState("");
 
   const normalizedSearch = search.trim().toLowerCase();
@@ -89,6 +94,9 @@ export function InventoryDashboard({
         item.name.toLowerCase().includes(normalizedSearch)) &&
       (statusFilter === "all" || item.status === statusFilter),
   );
+  const actionMenuItem = openMenu
+    ? items.find((item) => item.id === openMenu.itemId)
+    : null;
   const metrics = [
     {
       label: "Unique items",
@@ -125,6 +133,34 @@ export function InventoryDashboard({
     setForm(blankForm);
     setFormError("");
     setEditorOpen(true);
+  }
+  function toggleActionMenu(
+    itemId: string,
+    button: HTMLButtonElement,
+  ) {
+    if (openMenu?.itemId === itemId) {
+      setOpenMenu(null);
+      return;
+    }
+
+    const rect = button.getBoundingClientRect();
+    const menuWidth = 176;
+    const menuHeight = 132;
+    const viewportGap = 12;
+    const triggerGap = 8;
+    const hasSpaceBelow =
+      rect.bottom + triggerGap + menuHeight <= window.innerHeight - viewportGap;
+
+    setOpenMenu({
+      itemId,
+      top: hasSpaceBelow
+        ? rect.bottom + triggerGap
+        : Math.max(viewportGap, rect.top - menuHeight - triggerGap),
+      left: Math.min(
+        window.innerWidth - menuWidth - viewportGap,
+        Math.max(viewportGap, rect.right - menuWidth),
+      ),
+    });
   }
   function openEditEditor(item: InventoryItem) {
     setEditingItem(item);
@@ -390,22 +426,15 @@ export function InventoryDashboard({
                       <td className="relative border-b border-[#3B1B02]/8 px-4 py-4 text-right">
                         <button
                           type="button"
-                          onClick={() =>
-                            setOpenMenu(openMenu === item.id ? null : item.id)
+                          onClick={(event) =>
+                            toggleActionMenu(item.id, event.currentTarget)
                           }
-                          className="rounded-full border border-[#3B1B02]/12 p-2 transition-colors hover:bg-[#3B1B02] hover:text-[#F3E8DE]"
+                          className={`rounded-full border border-[#3B1B02]/12 p-2 transition-colors hover:bg-[#3B1B02] hover:text-[#F3E8DE] ${openMenu?.itemId === item.id ? "bg-[#3B1B02] text-[#F3E8DE]" : ""}`}
                           aria-label={`Actions for ${item.name}`}
+                          aria-expanded={openMenu?.itemId === item.id}
                         >
                           <Ellipsis className="size-4" />
                         </button>
-                        {openMenu === item.id ? (
-                          <ActionMenu
-                            item={item}
-                            onEdit={openEditEditor}
-                            onDelete={deleteItem}
-                            onShoppingList={addToShoppingList}
-                          />
-                        ) : null}
                       </td>
                     </tr>
                   ))}
@@ -491,6 +520,28 @@ export function InventoryDashboard({
           </div>
         )}
       </section>
+
+      {openMenu && actionMenuItem
+        ? createPortal(
+            <>
+              <button
+                type="button"
+                aria-label="Close item actions"
+                className="fixed inset-0 z-[90] cursor-default"
+                onClick={() => setOpenMenu(null)}
+              />
+              <ActionMenu
+                item={actionMenuItem}
+                top={openMenu.top}
+                left={openMenu.left}
+                onEdit={openEditEditor}
+                onDelete={deleteItem}
+                onShoppingList={addToShoppingList}
+              />
+            </>,
+            document.body,
+          )
+        : null}
 
       {editorOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm">
@@ -662,35 +713,43 @@ function StatusBadge({ status }: { status: InventoryStatus }) {
 }
 function ActionMenu({
   item,
+  top,
+  left,
   onEdit,
   onDelete,
   onShoppingList,
 }: {
   item: InventoryItem;
+  top: number;
+  left: number;
   onEdit: (item: InventoryItem) => void;
   onDelete: (item: InventoryItem) => void;
   onShoppingList: (item: InventoryItem) => void;
 }) {
   return (
-    <div className="absolute top-13 right-3 z-20 w-40 rounded-xl border border-[#3B1B02]/10 bg-white p-1.5 text-left shadow-xl">
+    <div
+      role="menu"
+      style={{ top, left }}
+      className="fixed z-[100] w-44 rounded-xl border border-[#3B1B02]/12 bg-white p-1.5 text-left text-[#3B1B02] shadow-[0_18px_50px_rgba(59,27,2,0.22)]"
+    >
       <button
         type="button"
         onClick={() => onShoppingList(item)}
-        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-[#FECF02]/18"
+        className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-[0.72rem] font-medium text-[#3B1B02] transition-colors hover:bg-[#FECF02]/18"
       >
-        <ShoppingCart className="size-3.5" /> Add to list
+        <ShoppingCart className="size-3.5 text-[#009A39]" /> Add to list
       </button>
       <button
         type="button"
         onClick={() => onEdit(item)}
-        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-[#F3E8DE]"
+        className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-[0.72rem] font-medium text-[#3B1B02] transition-colors hover:bg-[#F3E8DE]"
       >
-        <Pencil className="size-3.5" /> Restock / edit
+        <Pencil className="size-3.5 text-[#3B1B02]/65" /> Restock / edit
       </button>
       <button
         type="button"
         onClick={() => onDelete(item)}
-        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[0.68rem] hover:bg-black/7"
+        className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-[0.72rem] font-medium text-[#A63228] transition-colors hover:bg-[#A63228]/8"
       >
         <Trash2 className="size-3.5" /> Delete
       </button>

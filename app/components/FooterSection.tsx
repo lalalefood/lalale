@@ -1,7 +1,8 @@
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
 import WhatsappIcon from "@/public/assets/whatsapp_icon.svg"
 import Image from "next/image";
-import Logo from "@/public/assets/images/logo_transparent_background.png"
+// import Logo from "@/public/assets/images/logo_transparent_background.png"
+import Logo from "@/public/assets/images/logos/primary_logo.png"
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -25,15 +26,7 @@ export function FooterSection() {
       <div className="mx-auto grid max-w-screen-2xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.1fr_0.8fr_1fr] lg:px-12">
         <div className="max-w-xl">
           <div className="flex items-center gap-4">
-            <Image src={Logo} alt="LALALE Foods & Events" width={64} height={64} />
-            <div>
-              <p className="text-4xl font-semibold uppercase tracking-[0.01em] text-white font-[family:var(--font-display-family)]">
-                LALALE
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.34em] text-white/58">
-                Foods &amp; Events
-              </p>
-            </div>
+            <Image src={Logo} alt="LALALE Foods & Events" width={100} height={100} />
           </div>
 
           <p className="mt-8 max-w-lg text-[16px] leading-8 text-white/68 font-[family:var(--font-accent-family)]">
