@@ -10,6 +10,5 @@
         where email = 'llalalefoodsandevents@gmail.com'
         );
 
-
 llalalefoodsandevents@gmail.com
 lalale@2026
