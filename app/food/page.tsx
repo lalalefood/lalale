@@ -6,6 +6,7 @@ import { ContactCtaSection } from "@/app/components/ContactCtaSection";
 import { ContactSection } from "@/app/components/ContactSection";
 import { ServicesEventsSection } from "@/app/components/ServicesEventsSection";
 import { StorySection } from "@/app/components/StorySection";
+import { TeamSection } from "@/app/components/TeamSection";
 import { TestimonialsSection } from "@/app/components/TestimonialsSection";
 
 export default function FoodPage() {
@@ -17,6 +18,7 @@ export default function FoodPage() {
       <StorySection />
       <EventsGallerySection />
       <ContactCtaSection />
+      <TeamSection />
       <TestimonialsSection />
       <ContactSection />
       <FooterSection />
