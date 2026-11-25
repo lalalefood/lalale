@@ -15,5 +15,5 @@ const desktop = build("desktop", DESKTOP_PAGES);
 const mobile = build("mobile", MOBILE_PAGES);
 
 export function SchoolDinnersBook() {
-  return <Flipbook pages={desktop} mobilePages={mobile} label="School Dinners – LALALE" />;
+  return <Flipbook pages={desktop} mobilePages={mobile} label="Cooking Classes – LALALE" />;
 }

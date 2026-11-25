@@ -3,8 +3,8 @@ import Link from "next/link";
 import { SchoolDinnersBook } from "./SchoolDinnersBook";
 
 export const metadata: Metadata = {
-  title: "School Dinners | LALALE Foods & Events",
-  description: "Browse our School Dinners proposal, page by page.",
+  title: "Cooking Classes | LALALE Foods & Events",
+  description: "Browse our Cooking Classes proposal, page by page.",
 };
 
 export default function SchoolDinnersPage() {
@@ -20,7 +20,7 @@ export default function SchoolDinnersPage() {
             <span>Back</span>
           </Link>
           <h1 className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#D9AF75]">
-            School Dinners
+            Cooking Classes
           </h1>
         </header>
         <div className="flex flex-1 items-center justify-center py-4">

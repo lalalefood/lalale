@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import Logo from "@/public/assets/images/logo_transparent_background.png"
+import Logo from "@/public/assets/images/logo_transparent_background.png";
 
 export const metadata: Metadata = {
   title: "Our History | LALALE Foods & Events",
@@ -147,11 +147,19 @@ function DuotoneBleed({
         />
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: tintVar, mixBlendMode: "color", opacity: 0.9 }}
+          style={{
+            backgroundColor: tintVar,
+            mixBlendMode: "color",
+            opacity: 0.9,
+          }}
         />
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "#000", mixBlendMode: "multiply", opacity: 0.15 }}
+          style={{
+            backgroundColor: "#000",
+            mixBlendMode: "multiply",
+            opacity: 0.15,
+          }}
         />
       </div>
     </div>
@@ -167,16 +175,31 @@ export default function HistoryPage() {
           href="/"
           className="text-xl font-light tracking-[0.22em] text-white/88 uppercase font-[family:var(--font-accent-family)]"
         >
-          <Image src={Logo} alt="LALALE Foods & Events" width={50} height={50} />
+          <Image
+            src={Logo}
+            alt="LALALE Foods & Events"
+            width={50}
+            height={53}
+            className="h-auto w-[50px]"
+          />
         </Link>
-        <nav aria-label="Primary" className="flex items-center gap-8 text-[0.68rem] font-semibold tracking-[0.32em] text-white/70 uppercase">
+        <nav
+          aria-label="Primary"
+          className="flex items-center gap-8 text-[0.68rem] font-semibold tracking-[0.32em] text-white/70 uppercase"
+        >
           <Link href="/" className="transition hover:text-[var(--color-gold)]">
             Home
           </Link>
-          <Link href="/menu" className="transition hover:text-[var(--color-gold)]">
+          <Link
+            href="/menu"
+            className="transition hover:text-[var(--color-gold)]"
+          >
             Menu
           </Link>
-          <Link href="/#contact-form" className="transition hover:text-[var(--color-jade)]">
+          <Link
+            href="/#contact-form"
+            className="transition hover:text-[var(--color-jade)]"
+          >
             Contact
           </Link>
         </nav>
@@ -302,7 +325,9 @@ export default function HistoryPage() {
                       <div
                         className={[
                           "group relative isolate aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02]",
-                          item.featured ? "ring-1 ring-[var(--color-gold)]/35" : "",
+                          item.featured
+                            ? "ring-1 ring-[var(--color-gold)]/35"
+                            : "",
                         ].join(" ")}
                       >
                         <Image
