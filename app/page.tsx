@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Lock } from "lucide-react";
 import Logo from "@/public/assets/images/logo_transparent_background.png";
 
-
 const cards = [
   {
     title: "Lalale Food",
@@ -59,9 +58,10 @@ export default function HomePage() {
               id="sobre"
               className="mx-auto mt-8 max-w-3xl text-pretty text-sm leading-8 text-white/64 sm:text-base"
             >
-              Lalale Group is building a connected ecosystem around food, culture, events and
-              production, bringing Jamaican flavour into hospitality, experiences and future-facing
-              ventures with the same warm identity.
+              Lalale Group is building a connected ecosystem around food,
+              culture, events and production, bringing Jamaican flavour into
+              hospitality, experiences and future-facing ventures with the same
+              warm identity.
             </p>
           </div>
 
@@ -69,13 +69,15 @@ export default function HomePage() {
             id="explore"
             className="relative mx-auto mt-14 grid w-full max-w-6xl gap-5 lg:grid-cols-3"
           >
-            {cards.map((card) => (
+            {cards.map((card) =>
               card.locked ? (
                 <article
                   key={card.title}
                   className={`group relative overflow-hidden rounded-[2rem] border p-6 shadow-[0_18px_42px_rgba(0,0,0,0.22)] ${card.surface}`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${card.tone} opacity-100`} />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${card.tone} opacity-100`}
+                  />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(0,0,0,0.16))]" />
 
                   <div className="relative flex h-full min-h-72 flex-col justify-between">
@@ -110,11 +112,19 @@ export default function HomePage() {
                   href={card.href}
                   className={`group relative overflow-hidden rounded-[2rem] border p-6 shadow-[0_18px_42px_rgba(0,0,0,0.24)] transition duration-500 hover:scale-[1.02] hover:border-[#D9AF75]/38 ${card.surface}`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${card.tone} opacity-100 transition duration-500 group-hover:opacity-80`} />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${card.tone} opacity-100 transition duration-500 group-hover:opacity-80`}
+                  />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.14))]" />
                   <div className="relative flex h-full min-h-72 flex-col justify-between">
                     <div>
-                      <Image src={Logo} alt="LALALE Foods & Events" width={44} height={44} />
+                      <Image
+                        src={Logo}
+                        alt="LALALE Foods & Events"
+                        width={44}
+                        height={47}
+                        className="h-auto w-11"
+                      />
                       <h2 className="mt-5 font-[Cinzel,serif] text-3xl font-semibold uppercase leading-[0.95] tracking-[0.03em] text-[#D9AF75] sm:text-4xl">
                         {card.title}
                       </h2>
@@ -133,8 +143,8 @@ export default function HomePage() {
                     </div>
                   </div>
                 </Link>
-              )
-            ))}
+              ),
+            )}
           </div>
         </div>
       </section>

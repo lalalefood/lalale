@@ -159,7 +159,7 @@ export default function MenuPage() {
             we bring the experience to you.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            We offer bespoke culinary experiences tailored for Private Parties, Corporate Events, Concerts, Fine Dining, Office Lunches, Weddings, Funerals, Chef’s Tables, and School Dinners. Our head chef and dedicated team meticulously oversee every detail to bring the distinctive flavours of Jamaica directly to your event.
+            We offer bespoke culinary experiences tailored for Private Parties, Corporate Events, Concerts, Fine Dining, Office Lunches, Weddings, Funerals, Chef’s Tables, and Cooking Classes. Our head chef and dedicated team meticulously oversee every detail to bring the distinctive flavours of Jamaica directly to your event.
           </p>
           <a
             href="/food#contact-form"
